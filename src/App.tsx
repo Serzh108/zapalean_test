@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
+// import { Switch } from 'react-router-dom';
 import PieChart from './components/PieChart/PieChart';
 import Form from './components/Form/Form';
 import logo from './logo.svg';
@@ -11,7 +11,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
       </header>
-      <Switch></Switch>
+      {/* <Switch></Switch> */}
       <Form />
       <PieChart />
     </div>
