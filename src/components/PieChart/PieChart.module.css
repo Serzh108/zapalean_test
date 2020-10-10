@@ -1,0 +1,15 @@
+circle {
+  fill: #f1f2f3;
+  stroke: green;
+  stroke-width: 5;
+}
+
+path {
+  fill: #eee;
+}
+
+.pie {
+  width: 250px;
+  height: 250px;
+  border: 1px solid red;
+}
