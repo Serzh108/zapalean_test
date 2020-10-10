@@ -1,3 +1,4 @@
+import { relative } from 'path';
 import React from 'react';
 import styles from './PieChart.module.css';
 
@@ -59,25 +60,42 @@ const PieChart = () => {
     console.log('prevX: ', prevX, ', prevY = ', prevY);
     return newD;
   };
-  // const coord1 = coord(0.33);
-
-  const xX = 115;
 
   return (
     <>
-      <div>
+      <div style={{ position: 'relative' }}>
         <svg className={styles.pie}>
-          <circle cx={xX} cy="115" r="110"></circle>
+          <circle cx={CENTER_X} cy="115" r="110"></circle>
           {/* <path d="M115,115 L115,5 A110,110 1 0,1 190,35 z"></path> */}
           <path
             style={{ fill: fillA }}
             d="M115,115 L190,35 A110,110 1 0,1 225,115 z"
           ></path>
+          {/* <line
+            x1="115" y1="115" x2="207" y2="75"
+            style={{ stroke: "#fff" }}
+          /> */}
+          {/* <line x1="115" y1="115" x2="225" y2="67" style={{ stroke: '#f00' }} /> */}
+          <polyline
+            points="115,115 225,67 235,67"
+            style={{ fill: 'none', stroke: fillA }}
+          />
         </svg>
+        <div
+          style={{
+            position: 'absolute',
+            top: 56,
+            left: 218,
+            fontSize: 12,
+            lineHeight: 1,
+            color: fillA,
+          }}
+        >
+          text
+        </div>
 
         <svg className={styles.pie}>
           <circle cx={CENTER_X} cy={CENTER_Y} r={RADIUS}></circle>
-          {/* <path d="M115,115 L115,5 A110,110 1 0,1 225,115 z"></path> */}
           {percentArr.map((item, idx) => (
             <path
               key={idx}
