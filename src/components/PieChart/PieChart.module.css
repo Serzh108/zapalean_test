@@ -8,8 +8,33 @@ path {
   fill: #eee;
 }
 
+.pie1 {
+  width: 410px;
+  height: 410px;
+  border: 1px solid red;
+}
+
 .pie {
   width: 250px;
   height: 250px;
   border: 1px solid red;
+}
+
+.pie text,
+.pie1 text {
+  font-size: 12px;
+  opacity: 0;
+}
+
+.pie polyline,
+.pie1 polyline {
+  opacity: 0;
+}
+
+.pie:hover text,
+.pie:hover polyline,
+.pie1:hover text,
+.pie1:hover polyline {
+  /* font-size: 24px; */
+  opacity: 1;
 }

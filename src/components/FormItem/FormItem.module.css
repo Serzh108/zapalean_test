@@ -1,0 +1,31 @@
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.input {
+  /* margin-bottom: 19px; */
+  /* width: 430px; */
+  width: 46%;
+  height: 50px;
+  padding-left: 8px;
+  font-family: var(--main-font);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.04em;
+  color: var(--main-text-color);
+  border: none;
+  border: 1px solid var(--second-text-color);
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--second-text-color);
+}
