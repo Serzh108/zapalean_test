@@ -18,7 +18,11 @@ const Form = () => {
     const currentEl = e.target;
     if (!currentEl.closest('FORM').id) return;
     const id = Number(currentEl.closest('FORM').id);
-    const { name, value } = e.currentTarget;
+    let { name, value } = e.currentTarget;
+    // =========- ? -========
+    const valueD = Math.abs(Number(value));
+    value = valueD ? valueD : value;
+    // =========- /? -========
     dispatch(formOperations.writeData({ id, [name]: value }));
   };
 
