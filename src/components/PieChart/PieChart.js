@@ -1,6 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+// import randomColor from '../../helper/randomColor';
+import amountPercent from '../../helper/amountPercent';
+import NewPath from './NewPath';
 import styles from './PieChart.module.css';
 
 const CENTER_X = 200;
@@ -10,10 +13,6 @@ const RADIUS = 120;
 const PieChart = () => {
   const { items } = useSelector(state => state.piechart);
 
-  function randomColor() {
-    const color = () => Math.floor(Math.random() * 255 + 1);
-    return `rgb(${color()}, ${color()}, ${color()})`;
-  }
   // ==========----- TEMP -----=============
   const amountArr = [
     { name: 'css', amount: '2', id: 0 },
@@ -23,18 +22,18 @@ const PieChart = () => {
     { name: 'node', amount: '10', id: 4 },
   ];
   // ==========----- /TEMP -----=============
-  const amountPercent = arr => {
-    let sum = arr.reduce((acc, el) => acc + Number(el.amount), 0);
-    sum = sum === 0 ? 1 : sum;
-    let arrPercent = [...arr];
-    arr.reduce((acc, item, idx) => {
-      acc =
-        idx === 0 ? Number(item.amount) / sum : Number(item.amount) / sum + acc;
-      arrPercent[idx] = { ...arrPercent[idx], amount: acc };
-      return acc;
-    }, 0);
-    return arrPercent;
-  };
+  // const amountPercent = arr => {
+  //   let sum = arr.reduce((acc, el) => acc + Number(el.amount), 0);
+  //   sum = sum === 0 ? 1 : sum;
+  //   const arrPercent = [...arr];
+  //   arr.reduce((acc, item, idx) => {
+  //     acc =
+  //       idx === 0 ? Number(item.amount) / sum : Number(item.amount) / sum + acc;
+  //     arrPercent[idx] = { ...arrPercent[idx], amount: acc };
+  //     return acc;
+  //   }, 0);
+  //   return arrPercent;
+  // };
   items[0].amount
     ? console.log('!!!!!!!!!!!items + true')
     : console.log('!!!!!!!!!!!items - false');
@@ -74,28 +73,30 @@ const PieChart = () => {
     prevAmount = amount;
     // ===============----===========
 
-    const currentColor = randomColor();
-    const newPath = (
-      <>
-        <path key={`path${id}`} style={{ fill: currentColor }} d={newD}></path>
-        <polyline
-          key={`polyline${id}`}
-          points={`${CENTER_X},${CENTER_Y} ${yA},${xA} ${
-            yA >= CENTER_X ? yA + 15 : yA - 15
-          },${xA}`}
-          style={{ fill: 'none', stroke: currentColor }}
-        />
-        <text
-          key={`text${id}`}
-          x={yA >= CENTER_X ? yA + 20 : yA - 56}
-          y={xA + 4}
-          fill={currentColor}
-        >
-          {name}
-        </text>
-      </>
-    );
-    return newPath;
+    // const currentColor = randomColor();
+    // const newPath = (
+    //   <>
+    //     <path key={`path${id}`} style={{ fill: currentColor }} d={newD}></path>
+    //     <polyline
+    //       key={`polyline${id}`}
+    //       points={`${CENTER_X},${CENTER_Y} ${yA},${xA} ${
+    //         yA >= CENTER_X ? yA + 15 : yA - 15
+    //       },${xA}`}
+    //       style={{ fill: 'none', stroke: currentColor }}
+    //     />
+    //     <text
+    //       key={`text${id}`}
+    //       x={yA >= CENTER_X ? yA + 20 : yA - 56}
+    //       y={xA + 4}
+    //       fill={currentColor}
+    //     >
+    //       {name}
+    //     </text>
+    //   </>
+    // );
+    const params = { id, newD, CENTER_X, CENTER_Y, xA, yA, name };
+    return <NewPath params={params} />;
+    // return newPath;
   };
 
   return (
