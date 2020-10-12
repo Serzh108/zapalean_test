@@ -1,40 +1,39 @@
 circle {
   fill: #f1f2f3;
-  stroke: green;
-  stroke-width: 5;
+  /* stroke: #aaa; */
+  /* stroke-width: 2; */
 }
 
 path {
-  fill: #eee;
-}
-
-.pie1 {
-  width: 410px;
-  height: 410px;
-  border: 1px solid red;
+  fill: #f1f2f3;
 }
 
 .pie {
-  width: 250px;
-  height: 250px;
+  width: 400px;
+  height: 400px;
   border: 1px solid red;
 }
 
-.pie text,
-.pie1 text {
+.pie text {
   font-size: 12px;
   opacity: 0;
 }
 
-.pie polyline,
-.pie1 polyline {
+.pie polyline {
   opacity: 0;
 }
 
 .pie:hover text,
-.pie:hover polyline,
-.pie1:hover text,
-.pie1:hover polyline {
-  /* font-size: 24px; */
+.pie:hover polyline {
   opacity: 1;
+}
+
+.form_link {
+  font-family: var(--main-font);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.04em;
+  color: var(--main-text-color);
 }

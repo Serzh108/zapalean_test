@@ -1,6 +1,5 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import formOperations from '../../redux/formOperations';
 import FormItem from '../FormItem/FormItem';
 import styles from './Form.module.css';
@@ -11,26 +10,33 @@ const initialState = {
 };
 
 const Form = () => {
+  const [state, setState] = useState([initialState]);
+  // -----===
   const dispatch = useDispatch();
-  const { items } = useSelector(state => state.piechart);
-
+  // -----===
   const handleChange = e => {
     const currentEl = e.target;
     if (!currentEl.closest('FORM').id) return;
     const id = Number(currentEl.closest('FORM').id);
     const { name, value } = e.currentTarget;
+    const tempState = [...state];
+    tempState[id] = { ...tempState[id], [name]: value };
+    setState([...tempState]);
+    // -----===
     dispatch(formOperations.writeData({ id, [name]: value }));
   };
 
   const addHandler = () => {
+    setState(prev => [...prev, initialState]);
+    // -----===
     dispatch(formOperations.addForm(initialState));
   };
 
   return (
     <>
       <div className={styles.container}>
-        {items &&
-          items.map((item, idx) => (
+        {state &&
+          state.map((item, idx) => (
             <FormItem
               key={idx}
               handleChange={handleChange}
@@ -43,10 +49,6 @@ const Form = () => {
       <button type="button" onClick={addHandler} className={styles.add_btn}>
         Добавить
       </button>
-
-      <p className={styles.form_link}>
-        <NavLink to="/piechart">Перейти к Pie Chart</NavLink>
-      </p>
     </>
   );
 };
