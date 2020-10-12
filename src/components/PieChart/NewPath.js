@@ -1,24 +1,39 @@
-import React from 'react';
-import randomColor from '../../helper/randomColor';
+import React, { useState } from 'react';
 
 const NewPath = ({ params }) => {
-  const { id, newD, CENTER_X, CENTER_Y, xA, yA, name } = params;
-  const currentColor = randomColor();
+  const { id, newD, CENTER_X, CENTER_Y, xA, yA, name, color } = params;
+  const [selected, setSelected] = useState(null);
+
+  const mouseHandler = e => {
+    setSelected(Number(e.currentTarget.id));
+  };
+  const mouseHandler1 = e => {
+    setSelected(null);
+  };
+
   return (
     <>
-      <path key={`path${id}`} style={{ fill: currentColor }} d={newD}></path>
+      <path
+        key={`path${id}`}
+        style={{ fill: color }}
+        d={newD}
+        id={id}
+        onMouseEnter={mouseHandler}
+        onMouseLeave={mouseHandler1}
+      ></path>
       <polyline
         key={`polyline${id}`}
         points={`${CENTER_X},${CENTER_Y} ${yA},${xA} ${
           yA >= CENTER_X ? yA + 15 : yA - 15
         },${xA}`}
-        style={{ fill: 'none', stroke: currentColor }}
+        style={{ fill: 'none', stroke: color }}
       />
       <text
         key={`text${id}`}
-        x={yA >= CENTER_X ? yA + 20 : yA - 56}
+        x={yA >= CENTER_X ? yA + 20 : yA - (selected === id ? 72 : 56)}
         y={xA + 4}
-        fill={currentColor}
+        fill={color}
+        style={{ fontSize: selected === id ? 18 : 12 }}
       >
         {name}
       </text>

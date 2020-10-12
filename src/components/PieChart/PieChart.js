@@ -6,8 +6,8 @@ import amountPercent from '../../helper/amountPercent';
 import NewPath from './NewPath';
 import styles from './PieChart.module.css';
 
-const CENTER_X = 200;
-const CENTER_Y = 200;
+const CENTER_X = 300;
+const CENTER_Y = 300;
 const RADIUS = 120;
 
 const PieChart = () => {
@@ -34,9 +34,10 @@ const PieChart = () => {
   //   }, 0);
   //   return arrPercent;
   // };
-  items[0].amount
-    ? console.log('!!!!!!!!!!!items + true')
-    : console.log('!!!!!!!!!!!items - false');
+
+  // items[0].amount
+  //   ? console.log('!!!!!!!!!!!items + true')
+  //   : console.log('!!!!!!!!!!!items - false');
   const percentArr = items[0].amount
     ? amountPercent(items)
     : amountPercent(amountArr);
@@ -49,8 +50,8 @@ const PieChart = () => {
   let prevAmount = 0;
 
   const coord = (item, idx, iArr) => {
-    const { name, amount, id } = item;
-    // console.log('amount = ', amount, ' iArr = ', iArr, ' id = ', id);
+    const { name, amount, id, color } = item;
+    // console.log('amount = ', amount, ' iArr = ', iArr, ' id = ', id, ' color = ', color);
     const angle = Math.PI * 2 * amount;
     const x = Math.round(CENTER_X - RADIUS * Math.cos(angle));
     const y = Math.round(CENTER_Y + RADIUS * Math.sin(angle));
@@ -94,8 +95,8 @@ const PieChart = () => {
     //     </text>
     //   </>
     // );
-    const params = { id, newD, CENTER_X, CENTER_Y, xA, yA, name };
-    return <NewPath params={params} />;
+    const params = { id, newD, CENTER_X, CENTER_Y, xA, yA, name, color };
+    return <NewPath key={`path${id}`} params={params} />;
     // return newPath;
   };
 
