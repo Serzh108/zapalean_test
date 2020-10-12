@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
 
 const NewPath = ({ params }) => {
-  const { id, newD, CENTER_X, CENTER_Y, xA, yA, name, color } = params;
+  const {
+    id,
+    newD,
+    CENTER_X,
+    CENTER_Y,
+    xA,
+    yA,
+    xL0,
+    yL0,
+    name,
+    color,
+  } = params;
   const [selected, setSelected] = useState(null);
 
   const mouseHandler = e => {
@@ -23,7 +34,8 @@ const NewPath = ({ params }) => {
       ></path>
       <polyline
         key={`polyline${id}`}
-        points={`${CENTER_X},${CENTER_Y} ${yA},${xA} ${
+        // points={`${CENTER_X},${CENTER_Y} ${yA},${xA} ${
+        points={`${yL0},${xL0} ${yA},${xA} ${
           yA >= CENTER_X ? yA + 15 : yA - 15
         },${xA}`}
         style={{ fill: 'none', stroke: color }}

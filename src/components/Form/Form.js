@@ -34,7 +34,7 @@ const Form = () => {
             <FormItem
               key={idx}
               handleChange={handleChange}
-              state={item[idx]}
+              itemCur={item}
               id={idx}
             />
           ))}

@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-// import randomColor from '../../helper/randomColor';
 import amountPercent from '../../helper/amountPercent';
 import NewPath from './NewPath';
 import styles from './PieChart.module.css';
@@ -22,28 +21,15 @@ const PieChart = () => {
     { name: 'node', amount: '10', id: 4 },
   ];
   // ==========----- /TEMP -----=============
-  // const amountPercent = arr => {
-  //   let sum = arr.reduce((acc, el) => acc + Number(el.amount), 0);
-  //   sum = sum === 0 ? 1 : sum;
-  //   const arrPercent = [...arr];
-  //   arr.reduce((acc, item, idx) => {
-  //     acc =
-  //       idx === 0 ? Number(item.amount) / sum : Number(item.amount) / sum + acc;
-  //     arrPercent[idx] = { ...arrPercent[idx], amount: acc };
-  //     return acc;
-  //   }, 0);
-  //   return arrPercent;
-  // };
 
-  // items[0].amount
-  //   ? console.log('!!!!!!!!!!!items + true')
-  //   : console.log('!!!!!!!!!!!items - false');
+  const coordX = (radius, angleR) =>
+    Math.round(CENTER_X - radius * Math.cos(angleR));
+  const coordY = (radius, angleR) =>
+    Math.round(CENTER_X + radius * Math.sin(angleR));
+
   const percentArr = items[0].amount
     ? amountPercent(items)
     : amountPercent(amountArr);
-  // const percentArr = amountPercent(amountArr);
-  // const percentArr = amountPercent(items);
-  // ==========----------=============
 
   let prevX = CENTER_X;
   let prevY = CENTER_Y - RADIUS;
@@ -51,20 +37,28 @@ const PieChart = () => {
 
   const coord = (item, idx, iArr) => {
     const { name, amount, id, color } = item;
-    // console.log('amount = ', amount, ' iArr = ', iArr, ' id = ', id, ' color = ', color);
     const angle = Math.PI * 2 * amount;
-    const x = Math.round(CENTER_X - RADIUS * Math.cos(angle));
-    const y = Math.round(CENTER_Y + RADIUS * Math.sin(angle));
+    const x = coordX(RADIUS, angle);
+    const y = coordY(RADIUS, angle);
+    // const x = Math.round(CENTER_X - RADIUS * Math.cos(angle));
+    // const y = Math.round(CENTER_Y + RADIUS * Math.sin(angle));
     // =================-----------===========
     const amountL =
       id === 0
         ? amount / 2
         : iArr[id - 1].amount + (iArr[id].amount - iArr[id - 1].amount) / 2;
     const angleL = Math.PI * 2 * amountL;
-    const xA = Math.round(CENTER_X - (RADIUS + 20) * Math.cos(angleL));
-    const yA = Math.round(CENTER_Y + (RADIUS + 20) * Math.sin(angleL));
+    const xA = coordX(RADIUS + 16, angleL);
+    const yA = coordY(RADIUS + 16, angleL);
+    // const xA = Math.round(CENTER_X - (RADIUS + 16) * Math.cos(angleL));
+    // const yA = Math.round(CENTER_Y + (RADIUS + 16) * Math.sin(angleL));
+    // =-=-=-=-=
+    const xL0 = coordX(RADIUS, angleL);
+    const yL0 = coordY(RADIUS, angleL);
+    // const xL0 = Math.round(CENTER_X - (RADIUS) * Math.cos(angleL));
+    // const yL0 = Math.round(CENTER_Y + (RADIUS) * Math.sin(angleL));
+    // =-=-=-=-=
     // =================-----------===========
-    // const newD = `M115,115 L190,35 A110,110 1 0,1 ${y},${x} z`;
     const newD = `M${CENTER_X},${CENTER_Y} L${prevX},${prevY} A${RADIUS},${RADIUS} 1 ${
       amount - prevAmount > 0.5 ? 1 : 0
     },1 ${y},${x} z`;
@@ -73,31 +67,19 @@ const PieChart = () => {
     prevY = x;
     prevAmount = amount;
     // ===============----===========
-
-    // const currentColor = randomColor();
-    // const newPath = (
-    //   <>
-    //     <path key={`path${id}`} style={{ fill: currentColor }} d={newD}></path>
-    //     <polyline
-    //       key={`polyline${id}`}
-    //       points={`${CENTER_X},${CENTER_Y} ${yA},${xA} ${
-    //         yA >= CENTER_X ? yA + 15 : yA - 15
-    //       },${xA}`}
-    //       style={{ fill: 'none', stroke: currentColor }}
-    //     />
-    //     <text
-    //       key={`text${id}`}
-    //       x={yA >= CENTER_X ? yA + 20 : yA - 56}
-    //       y={xA + 4}
-    //       fill={currentColor}
-    //     >
-    //       {name}
-    //     </text>
-    //   </>
-    // );
-    const params = { id, newD, CENTER_X, CENTER_Y, xA, yA, name, color };
+    const params = {
+      id,
+      newD,
+      CENTER_X,
+      CENTER_Y,
+      xA,
+      yA,
+      xL0,
+      yL0,
+      name,
+      color,
+    };
     return <NewPath key={`path${id}`} params={params} />;
-    // return newPath;
   };
 
   return (
